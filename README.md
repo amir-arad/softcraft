@@ -27,9 +27,9 @@ Boom! These scripts run your server, client and storybook in development mode.
 
 The default PORTS are:
 
-- `3001` for the server
-- `3000` for the client
-- `6006` for the storybook
+-   `3001` for the server
+-   `3000` for the client
+-   `6006` for the storybook
 
 If you don't like to call all scripts at once, you can also run:
 
