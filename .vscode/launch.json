@@ -1,0 +1,30 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "run server",
+            "type": "pwa-node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "args": ["-r", "ts-node/register/transpile-only", "${workspaceFolder}/src/server.ts"],
+            "resolveSourceMapLocations": ["${workspaceFolder}/**", "!**/node_modules/**"],
+            "skipFiles": ["<node_internals>/**"],
+            "internalConsoleOptions": "openOnSessionStart",
+            "env": {
+                "TS_NODE_PROJECT": "tsconfig.server.json"
+            }
+        },
+        {
+            "name": "debug chrome",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://localhost:4000/",
+            "sourceMaps": true,
+            "trace": true,
+            "webRoot": "${workspaceFolder}",
+            "sourceMapPathOverrides": {
+                "webpack://@starwards/*": "${webRoot}/*"
+            }
+        }
+    ]
+}
