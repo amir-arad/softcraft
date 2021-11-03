@@ -20,5 +20,6 @@
         "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true
     },
-    "include": ["./src/app"]
+    "typeRoots": ["./custom-typings", "./node_modules/@types"],
+    "include": ["**/*.ts", "**/*.tsx"]
 }

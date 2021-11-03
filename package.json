@@ -18,10 +18,10 @@
     },
     "devDependencies": {
         "@babel/core": "^7.15.8",
-        "@storybook/addon-actions": "^6.4.0-beta.23",
-        "@storybook/addon-essentials": "^6.4.0-beta.23",
-        "@storybook/addon-links": "^6.4.0-beta.23",
-        "@storybook/react": "^6.4.0-beta.23",
+        "@storybook/addon-actions": "^6.3.12",
+        "@storybook/addon-essentials": "^6.3.12",
+        "@storybook/addon-links": "^6.3.12",
+        "@storybook/react": "^6.3.12",
         "@types/express": "^4.17.13",
         "@types/node": "^16.11.4",
         "@types/react": "^17.0.32",
@@ -50,6 +50,12 @@
         "vite": "^2.6.10"
     },
     "dependencies": {
+        "@arwes/animation": "^1.0.0-alpha.19",
+        "@arwes/core": "^1.0.0-alpha.19",
+        "@arwes/design": "^1.0.0-alpha.19",
+        "@arwes/sounds": "^1.0.0-alpha.19",
+        "@emotion/css": "^11.5.0",
+        "@emotion/react": "^11.5.0",
         "dotenv": "^10.0.0",
         "express": "^4.17.1",
         "react": "^17.0.2",
