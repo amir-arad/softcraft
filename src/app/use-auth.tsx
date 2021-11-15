@@ -1,7 +1,5 @@
 import React, { FC, ReactNode, createContext, useContext, useEffect, useState } from 'react';
 
-import { useHistory } from 'react-router-dom';
-
 type AuthContext = ReturnType<typeof useProvideAuth>;
 const authContext = createContext<AuthContext>({
     user: null,
@@ -11,16 +9,18 @@ const authContext = createContext<AuthContext>({
 });
 // Provider component that wraps your app and makes auth object ...
 // ... available to any child component that calls useAuth().
-export function ProvideAuth({ children }: { children: ReactNode }) {
-    const auth = useProvideAuth();
+export function ProvideAuth({ user = null, children }: { user?: null | string; children: ReactNode }) {
+    const auth = useProvideAuth(user);
     return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 }
 
-export const AuthDecorator = (Story: FC) => (
-    <ProvideAuth>
-        <Story />
-    </ProvideAuth>
-);
+// eslint-disable-next-line react/display-name
+export const AuthDecorator = (user: null | string) => (Story: FC) =>
+    (
+        <ProvideAuth user={user}>
+            <Story />
+        </ProvideAuth>
+    );
 // Hook for child components to get the auth object ...
 // ... and re-render when it changes.
 export const useAuth = () => {
@@ -28,8 +28,8 @@ export const useAuth = () => {
 };
 
 // Provider hook that creates auth object and handles state
-function useProvideAuth() {
-    const [user, setUser] = useState<null | string>(null);
+function useProvideAuth(defautUser: null | string) {
+    const [user, setUser] = useState<null | string>(defautUser);
     // Wrap any Firebase methods we want to use making sure ...
     // ... to save the user to state.
     const signin = async (userName: string | null) => {
@@ -43,14 +43,19 @@ function useProvideAuth() {
     };
 }
 
-export const useRequireAuth = (redirectUrl: string) => {
+export const useRequireAuth = () => {
     const auth = useAuth();
-    const history = useHistory();
-    // If auth.user is falsy that means we're not logged in and should redirect.
+    // const history = useHistory();
+    // // If auth.user is falsy that means we're not logged in and should redirect.
+    // useEffect(() => {
+    //     if (!auth.user) {
+    //         history.push(redirectUrl);
+    //     }
+    // }, [auth, history, redirectUrl]);
     useEffect(() => {
         if (!auth.user) {
-            history.push(redirectUrl);
+            throw new Error('must be logged in');
         }
-    }, [auth, history, redirectUrl]);
+    }, [auth]);
     return auth;
 };

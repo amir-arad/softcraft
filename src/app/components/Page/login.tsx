@@ -22,7 +22,7 @@ export const LoginPage: FC = () => {
         <>
             <div
                 css={({ space }: ArwesTheme) => ({
-                    margin: '0 auto',
+                    margin: '1 auto',
                     padding: space(2),
                     maxWidth: 1000,
                     flex: 1,

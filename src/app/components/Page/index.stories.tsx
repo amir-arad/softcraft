@@ -1,3 +1,4 @@
+import { AuthDecorator } from '../../use-auth';
 import { Meta } from '@storybook/react';
 import { Page } from '.';
 import React from 'react';
@@ -7,7 +8,7 @@ import { Text } from '@arwes/core';
 export default {
     title: 'Component/Page',
     component: Page,
-    decorators: [StyleDecorator],
+    decorators: [AuthDecorator('eve'), StyleDecorator],
 } as Meta;
 
 export const TextHeavy = (): JSX.Element => (

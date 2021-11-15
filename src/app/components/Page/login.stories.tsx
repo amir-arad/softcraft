@@ -6,7 +6,7 @@ import { StyleDecorator } from '../../style';
 export default {
     title: 'Component/Login',
     component: LoginPage,
-    decorators: [AuthDecorator, StyleDecorator],
+    decorators: [AuthDecorator(null), StyleDecorator],
 };
 
-export const TextHeavy = (): JSX.Element => <LoginPage></LoginPage>;
+export const Primary = (): JSX.Element => <LoginPage></LoginPage>;

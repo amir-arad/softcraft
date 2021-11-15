@@ -6,10 +6,10 @@ import { FC, HTMLAttributes } from 'react';
 import { WithAnimatorOutputProps } from '@arwes/animation';
 import { jsx } from '@emotion/react';
 
-const Frame: FC<HTMLAttributes<HTMLDivElement> & FrameLinesProps<HTMLDivElement> & WithAnimatorOutputProps> =
-    FrameLines as any;
+type Frameprops = HTMLAttributes<HTMLDivElement> & FrameLinesProps<HTMLDivElement> & WithAnimatorOutputProps;
+const Frame: FC<Frameprops> = FrameLines;
 
-const AppFooter: FC = () => {
+export const AppFooter: FC = () => {
     return (
         <header
             css={({ space }: ArwesTheme) => ({
@@ -46,5 +46,3 @@ const AppFooter: FC = () => {
         </header>
     );
 };
-
-export { AppFooter };
