@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
+import { ArwesTheme, FrameLines, FrameLinesProps, Text } from '@arwes/core';
 import { FC, HTMLAttributes } from 'react';
-import { FrameLines, FrameLinesProps, Text } from '@arwes/core';
 
 import { WithAnimatorOutputProps } from '@arwes/animation';
 import { jsx } from '@emotion/react';
@@ -12,7 +12,7 @@ const Frame: FC<HTMLAttributes<HTMLDivElement> & FrameLinesProps<HTMLDivElement>
 const AppFooter: FC = () => {
     return (
         <header
-            css={({ space }) => ({
+            css={({ space }: ArwesTheme) => ({
                 padding: space(2),
                 userSelect: 'none',
 

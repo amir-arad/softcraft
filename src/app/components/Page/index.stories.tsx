@@ -1,11 +1,14 @@
+import { Meta } from '@storybook/react';
 import { Page } from '.';
 import React from 'react';
+import { StyleDecorator } from '../../style';
 import { Text } from '@arwes/core';
 
 export default {
     title: 'Component/Page',
     component: Page,
-};
+    decorators: [StyleDecorator],
+} as Meta;
 
 export const TextHeavy = (): JSX.Element => (
     <Page>
