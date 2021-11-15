@@ -1,4 +1,4 @@
-import { ProvideAuth, useAuth } from './use-auth';
+import { ProvideAuth, useAuth } from './hooks/authentication';
 import { Route, BrowserRouter as Router, Switch, useLocation } from 'react-router-dom';
 
 import { LoginPage } from './Pages/login';

@@ -1,4 +1,4 @@
-import { AuthDecorator } from '../use-auth';
+import { AuthDecorator } from '../hooks/authentication';
 import { Meta } from '@storybook/react';
 import { Page } from './page';
 import React from 'react';

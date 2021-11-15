@@ -8,7 +8,7 @@ import { Select, SelectChangeEvent } from '../components/select';
 
 import { AppFooter } from '../components/page-footer';
 import { jsx } from '@emotion/react';
-import { useAuth } from '../use-auth';
+import { useAuth } from '../hooks/authentication';
 
 export const LoginPage: FC = () => {
     const auth = useAuth();

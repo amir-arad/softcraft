@@ -1,4 +1,4 @@
-import { AuthDecorator } from '../use-auth';
+import { AuthDecorator } from '../hooks/authentication';
 import { LoginPage } from './login';
 import React from 'react';
 import { StyleDecorator } from '../style';
