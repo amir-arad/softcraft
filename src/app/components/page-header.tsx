@@ -7,8 +7,8 @@ import { jsx, useTheme } from '@emotion/react';
 
 import { Link } from 'react-router-dom';
 import { WithAnimatorOutputProps } from '@arwes/animation';
-import { createStyles } from './AppHeader.styles';
-import { useRequireAuth } from '../../use-auth';
+import { createStyles } from './page-header.styles';
+import { useRequireAuth } from '../use-auth';
 
 const Frame: FC<HTMLAttributes<HTMLDivElement> & FrameLinesProps<HTMLDivElement> & WithAnimatorOutputProps> =
     FrameLines;

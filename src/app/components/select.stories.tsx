@@ -9,7 +9,7 @@ import { StyleDecorator } from '../style';
 import { jsx } from '@emotion/react';
 
 export default {
-    title: 'Select',
+    title: 'Component/Select',
     component: Select,
     decorators: [
         (Story: Story) => (

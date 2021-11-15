@@ -1,8 +1,8 @@
 import { ProvideAuth, useAuth } from './use-auth';
 import { Route, BrowserRouter as Router, Switch, useLocation } from 'react-router-dom';
 
-import { LoginPage } from './components/Page/login';
-import { Page } from './components/Page';
+import { LoginPage } from './Pages/login';
+import { Page } from './components/page';
 import React from 'react';
 import { StyleWrapper } from './style';
 

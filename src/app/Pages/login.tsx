@@ -2,13 +2,13 @@
 /** @jsx jsx */
 /* @jsxFrag React.Fragment */
 
+import { ArwesTheme, Text } from '@arwes/core';
 import React, { FC, useCallback } from 'react';
-import { Select, SelectChangeEvent } from '../select';
+import { Select, SelectChangeEvent } from '../components/select';
 
-import { AppFooter } from './AppFooter';
-import { ArwesTheme } from '@arwes/core';
+import { AppFooter } from '../components/page-footer';
 import { jsx } from '@emotion/react';
-import { useAuth } from '../../use-auth';
+import { useAuth } from '../use-auth';
 
 export const LoginPage: FC = () => {
     const auth = useAuth();
@@ -29,6 +29,7 @@ export const LoginPage: FC = () => {
                     overflowY: 'auto',
                 })}
             >
+                <Text as="h1">Log In </Text>
                 <Select labelText={'User'} value={auth.user || ''} onChange={changeUser}>
                     <option value="alice">alice</option>
                     <option value="bob">bob</option>

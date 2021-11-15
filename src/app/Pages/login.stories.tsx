@@ -1,10 +1,10 @@
-import { AuthDecorator } from '../../use-auth';
+import { AuthDecorator } from '../use-auth';
 import { LoginPage } from './login';
 import React from 'react';
-import { StyleDecorator } from '../../style';
+import { StyleDecorator } from '../style';
 
 export default {
-    title: 'Component/Login',
+    title: 'Pages/Login',
     component: LoginPage,
     decorators: [AuthDecorator(null), StyleDecorator],
 };

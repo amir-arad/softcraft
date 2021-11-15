@@ -1,8 +1,8 @@
-import { AuthDecorator } from '../../use-auth';
+import { AuthDecorator } from '../use-auth';
 import { Meta } from '@storybook/react';
-import { Page } from '.';
+import { Page } from './page';
 import React from 'react';
-import { StyleDecorator } from '../../style';
+import { StyleDecorator } from '../style';
 import { Text } from '@arwes/core';
 
 export default {

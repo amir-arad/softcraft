@@ -4,8 +4,8 @@
 
 import { Global, jsx } from '@emotion/react';
 
-import { AppFooter } from './AppFooter';
-import { AppHeader } from './AppHeader';
+import { AppFooter } from './page-footer';
+import { AppHeader } from './page-header';
 import { ArwesTheme } from '@arwes/core';
 import { FC } from 'react';
 import React from 'react';
