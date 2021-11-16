@@ -10,6 +10,7 @@ import { FC } from 'react';
 import SOUND_ASSEMBLE_URL from '/sounds/assemble.mp3';
 import SOUND_CLICK_URL from '/sounds/click.mp3';
 import SOUND_OBJECT_URL from '/sounds/object.mp3';
+import SOUND_READOUT_URL from '/sounds/readout.mp3';
 import SOUND_TYPE_URL from '/sounds/type.mp3';
 import { jsx } from '@emotion/react';
 
@@ -43,12 +44,14 @@ const bleepsProviderProps: BleepsProviderProps = {
         assemble: { src: [SOUND_ASSEMBLE_URL], loop: true },
         type: { src: [SOUND_TYPE_URL], loop: true },
         click: { src: [SOUND_CLICK_URL] },
+        readout: { src: [SOUND_READOUT_URL], loop: true },
     },
     bleepsSettings: {
         object: { player: 'object' },
         assemble: { player: 'assemble' },
         type: { player: 'type' },
         click: { player: 'click' },
+        readout: { player: 'readout' },
     },
 };
 

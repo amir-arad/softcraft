@@ -11,7 +11,7 @@ const Frame: FC<Frameprops> = FrameLines;
 
 export const AppFooter: FC = () => {
     return (
-        <header
+        <footer
             css={({ space }: ArwesTheme) => ({
                 padding: space(2),
                 userSelect: 'none',
@@ -43,6 +43,6 @@ export const AppFooter: FC = () => {
                     </Text>
                 </div>
             </Frame>
-        </header>
+        </footer>
     );
 };
