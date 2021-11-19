@@ -1,42 +1,58 @@
-import { ProvideAuth, useAuth } from './hooks/authentication';
+import { ProvideAuth, useAuthenticatedUserId } from './hooks/authentication';
 import { Route, BrowserRouter as Router, Switch, useLocation } from 'react-router-dom';
 
+import { HomePage } from './Pages/home';
 import { LoginPage } from './Pages/login';
 import { Page } from './components/page';
+import { ProvideAppState } from './hooks/app-state';
 import React from 'react';
 import { StyleWrapper } from './style';
+import { stateBuilder } from './model';
+
+export function createApplicationState() {
+    console.log('creating a new application state');
+    return stateBuilder()
+        .user({ id: '1', name: 'alice', qdits: ['1'], dataSets: ['1'], trainings: ['1'] })
+        .user({ id: '2', name: 'bob' })
+
+        .qdit({ id: '1' })
+
+        .dataset({ id: '1', title: 'data X' })
+        .training({ id: '1', dataSet: '1', subjectQdit: '1' })
+        .build();
+}
 
 function App(): JSX.Element {
     return (
         <StyleWrapper>
-            <ProvideAuth>
-                <UserPages />
-            </ProvideAuth>
+            <ProvideAppState value={createApplicationState()}>
+                <ProvideAuth>
+                    <UserPages />
+                </ProvideAuth>
+            </ProvideAppState>
         </StyleWrapper>
     );
 }
 
 function UserPages() {
     // Get auth state and re-render anytime it changes
-    const auth = useAuth();
-    if (auth.user) {
+    const auth = useAuthenticatedUserId();
+    if (auth.userId) {
         return (
             <Router>
                 <Page>
-                    <Switch>
-                        <Route exact path="/">
-                            <main>Home</main>
-                        </Route>
-                        <Route path="/models">
-                            <main>Models</main>
-                        </Route>
-                        <Route path="/datesets">
-                            <main>Data-Sets</main>
-                        </Route>
-                        <Route path="*">
-                            <NoMatch />
-                        </Route>
-                    </Switch>
+                    <main>
+                        <Switch>
+                            <Route exact path="/">
+                                <HomePage />
+                            </Route>
+                            <Route path="/models">Models</Route>
+                            <Route path="/datesets">Data-Sets</Route>
+                            <Route path="*">
+                                <NoMatch />
+                            </Route>
+                        </Switch>
+                    </main>
                 </Page>
             </Router>
         );

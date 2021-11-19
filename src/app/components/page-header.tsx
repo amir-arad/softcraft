@@ -23,7 +23,7 @@ export const AppHeader: FC = () => {
             <Frame animator={{ manager: 'stagger' }} css={styles.frame} hideTopLines hideShapes>
                 <div css={styles.container}>
                     <Text as="h1" blink={false}>
-                        <Link to="/">Hello, {auth.user}</Link>
+                        <Link to="/">Hello, {auth.user.name}</Link>
                     </Text>
                     <Text as="nav" css={styles.nav} blink={false}>
                         <ul css={styles.navList}>

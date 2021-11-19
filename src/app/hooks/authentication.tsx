@@ -1,8 +1,10 @@
-import React, { FC, ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import React, { FC, ReactNode, createContext, useContext, useMemo, useState } from 'react';
 
-type AuthContext = ReturnType<typeof useProvideAuth>;
-const authContext = createContext<AuthContext>({
-    user: null,
+import { useAppState } from './app-state';
+
+type AuthState = ReturnType<typeof useProvideAuth>;
+const authContext = createContext<AuthState>({
+    userId: null,
     signin: () => {
         throw new Error(`unintialized authentication context`);
     },
@@ -23,39 +25,38 @@ export const AuthDecorator = (user: null | string) => (Story: FC) =>
     );
 // Hook for child components to get the auth object ...
 // ... and re-render when it changes.
-export const useAuth = () => {
+export const useAuthenticatedUserId = () => {
     return useContext(authContext);
 };
 
 // Provider hook that creates auth object and handles state
-function useProvideAuth(defautUser: null | string) {
-    const [user, setUser] = useState<null | string>(defautUser);
+function useProvideAuth(defaultUserId: null | string) {
+    const [loggedInUserId, setLoggedInUserId] = useState<null | string>(defaultUserId);
     // Wrap any Firebase methods we want to use making sure ...
     // ... to save the user to state.
-    const signin = async (userName: string | null) => {
-        setUser(userName);
-        return userName;
+    const signin = async (userId: string | null) => {
+        setLoggedInUserId(userId);
+        return userId;
     };
     // Return the user object and auth methods
     return {
-        user,
+        userId: loggedInUserId,
         signin,
     };
 }
 
 export const useRequireAuth = () => {
-    const auth = useAuth();
-    // const history = useHistory();
-    // // If auth.user is falsy that means we're not logged in and should redirect.
-    // useEffect(() => {
-    //     if (!auth.user) {
-    //         history.push(redirectUrl);
-    //     }
-    // }, [auth, history, redirectUrl]);
-    useEffect(() => {
-        if (!auth.user) {
+    const auth = useAuthenticatedUserId();
+    const state = useAppState();
+    return useMemo(() => {
+        const userId = auth.userId;
+        if (!userId) {
             throw new Error('must be logged in');
         }
-    }, [auth]);
-    return auth;
+        const user = state.users[userId];
+        if (!user) {
+            throw new Error("can't find user " + userId);
+        }
+        return { ...auth, userId, user };
+    }, [auth, state.users]);
 };

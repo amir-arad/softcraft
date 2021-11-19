@@ -7,17 +7,21 @@ import React, { FC, useCallback } from 'react';
 import { Select, SelectChangeEvent } from '../components/select';
 
 import { AppFooter } from '../components/page-footer';
+import { User } from '../model';
 import { jsx } from '@emotion/react';
-import { useAuth } from '../hooks/authentication';
+import { useAppState } from '../hooks/app-state';
+import { useAuthenticatedUserId } from '../hooks/authentication';
 
 export const LoginPage: FC = () => {
-    const auth = useAuth();
+    const state = useAppState();
+    const auth = useAuthenticatedUserId();
     const changeUser = useCallback(
         (event: SelectChangeEvent) => {
             auth.signin(event.target.value || null);
         },
         [auth]
     );
+    const users = Object.values(state.users) as User[];
     return (
         <>
             <div
@@ -30,9 +34,12 @@ export const LoginPage: FC = () => {
                 })}
             >
                 <Text as="h1">Log In </Text>
-                <Select labelText={'User'} value={auth.user || ''} onChange={changeUser}>
-                    <option value="alice">alice</option>
-                    <option value="bob">bob</option>
+                <Select labelText={'User'} value={auth.userId || ''} onChange={changeUser}>
+                    {users.map((u) => (
+                        <option key={`user-` + u.id} value={u.id}>
+                            {u.name}
+                        </option>
+                    ))}
                 </Select>
             </div>
             <AppFooter />
