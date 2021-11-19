@@ -18,15 +18,9 @@ export function addToMap<T extends Entity>(store: Partial<EntityStore<T>>, entit
 }
 
 export function getFromMap<T extends Entity>(store: Partial<EntityStore<T>>, ids: Id[]) {
-    const result = [];
-    for (const id of ids) {
-        const val = store[id];
-        if (val) {
-            result.push(val);
-        }
-    }
-    return result;
+    return ids.map((id) => store[id]) as T[];
 }
+
 export function logStore(store: unknown) {
     console.log(JSON.stringify(store, undefined, 2));
     observeDeep(store, () => {

@@ -25,7 +25,7 @@ export const Page: FC = ({ children }) => {
                 css={({ space }: ArwesTheme) => ({
                     margin: '0 auto',
                     padding: space(2),
-                    maxWidth: 1000,
+                    width: 1000,
                     flex: 1,
                     overflowY: 'auto',
                 })}
