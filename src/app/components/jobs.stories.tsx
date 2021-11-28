@@ -2,7 +2,7 @@
 /** @jsx jsx */
 
 import { Jobs, JobsProps } from './jobs';
-import { id, ids, idsFromMap, stateBuilder } from '../model';
+import { ids, idsFromMap, stateBuilder } from '../model';
 
 import { AppStateDecorator } from '../hooks/app-state';
 import { Meta } from '@storybook/react';
