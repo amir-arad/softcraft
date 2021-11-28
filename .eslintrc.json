@@ -8,6 +8,7 @@
         "plugin:prettier/recommended",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
+        "plugin:storybook/recommended",
         "prettier"
     ],
     "parser": "@typescript-eslint/parser",
@@ -23,6 +24,7 @@
     },
     "rules": {
         "react-hooks/rules-of-hooks": "error",
+        "react/display-name": "off",
         "react-hooks/exhaustive-deps": "error",
         "react/prop-types": "off",
         "prettier/prettier": "error"

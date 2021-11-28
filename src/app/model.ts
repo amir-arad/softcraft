@@ -9,6 +9,7 @@ export type InnerApplicationState = {
     programs: EntityStore<Program>;
     programExecutions: EntityStore<ProgramExecution>;
     trainings: EntityStore<Training>;
+    plannings: EntityStore<Planning>;
 };
 export type Entity = { id: Id };
 export type EntityStore<T extends Entity> = Record<Id, T>;
@@ -22,9 +23,9 @@ export function getFromMap<T extends Entity>(store: Partial<EntityStore<T>>, ids
 }
 
 export function logStore(store: unknown) {
-    console.log(JSON.stringify(store, undefined, 2));
+    console.log('app state', JSON.parse(JSON.stringify(store, undefined, 2)));
     observeDeep(store, () => {
-        console.log(JSON.stringify(store, undefined, 2));
+        console.log('app state', JSON.parse(JSON.stringify(store, undefined, 2)));
     });
 }
 export type ApplicationState = MappedTypeDescription<InnerApplicationState>;
@@ -36,6 +37,7 @@ export function stateBuilder() {
     const programs: Program[] = [];
     const programExecutions: ProgramExecution[] = [];
     const trainings: Training[] = [];
+    const plannings: Planning[] = [];
     return {
         user(user: Partial<User> & { id: string; name: string }) {
             users.push({
@@ -44,6 +46,7 @@ export function stateBuilder() {
                 programs: [],
                 programExecutions: [],
                 trainings: [],
+                plannings: [],
                 ...user,
             });
             return this;
@@ -86,11 +89,20 @@ export function stateBuilder() {
             });
             return this;
         },
-        training(training: Partial<Training> & { id: string; dataSet: Id; subjectQdit: Id }) {
+        training(training: Partial<Training> & { id: string; dataSet: Id; srcQdit: Id; dstQdit: Id }) {
             trainings.push({
                 start: Date.now(),
                 hasEnded: false,
                 ...training,
+            });
+            return this;
+        },
+        planning(planning: Partial<Planning> & { id: string; query: Text }) {
+            plannings.push({
+                start: Date.now(),
+                hasEnded: false,
+                resultPrograms: [],
+                ...planning,
             });
             return this;
         },
@@ -102,6 +114,7 @@ export function stateBuilder() {
                 programs: {},
                 programExecutions: {},
                 trainings: {},
+                plannings: {},
             });
             for (const user of users) addToMap(state.users, user);
             for (const qdit of qdits) addToMap(state.qdits, qdit);
@@ -109,6 +122,7 @@ export function stateBuilder() {
             for (const program of programs) addToMap(state.programs, program);
             for (const programExecution of programExecutions) addToMap(state.programExecutions, programExecution);
             for (const training of trainings) addToMap(state.trainings, training);
+            for (const planning of plannings) addToMap(state.plannings, planning);
             return state;
         },
     };
@@ -124,6 +138,7 @@ export type User = {
     name: string;
     qdits: Id[];
     dataSets: Id[];
+    plannings: Id[];
     programs: Id[];
     programExecutions: Id[];
     trainings: Id[];
@@ -166,7 +181,16 @@ export type ProgramExecution = {
 export type Training = {
     id: Id;
     dataSet: Id;
-    subjectQdit: Id;
+    srcQdit: Id;
+    dstQdit: Id;
     start: Milliseconds;
     hasEnded: boolean;
+};
+
+export type Planning = {
+    id: Id;
+    query: Text;
+    start: Milliseconds;
+    hasEnded: boolean;
+    resultPrograms: Id[];
 };

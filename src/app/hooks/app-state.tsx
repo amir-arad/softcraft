@@ -17,7 +17,6 @@ export function useAppState(): ApplicationState {
     return useSyncedStore(state);
 }
 
-// eslint-disable-next-line react/display-name
 export const AppStateDecorator = (state: ApplicationState | null) => (Story: FC) =>
     (
         <ProvideAppState value={state}>

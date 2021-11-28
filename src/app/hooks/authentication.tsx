@@ -16,7 +16,6 @@ export function ProvideAuth({ user = null, children }: { user?: null | string; c
     return <authContext.Provider value={auth}>{children}</authContext.Provider>;
 }
 
-// eslint-disable-next-line react/display-name
 export const AuthDecorator = (user: null | string) => (Story: FC) =>
     (
         <ProvideAuth user={user}>

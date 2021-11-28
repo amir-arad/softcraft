@@ -1,5 +1,5 @@
 import { ProvideAuth, useAuthenticatedUserId } from './hooks/authentication';
-import { Route, BrowserRouter as Router, Switch, useLocation } from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom';
 
 import { HomePage } from './Pages/home';
 import { LoginPage } from './Pages/login';
@@ -16,9 +16,10 @@ export function createApplicationState() {
         .user({ id: '2', name: 'bob' })
 
         .qdit({ id: '1' })
+        .qdit({ id: '2' })
 
         .dataset({ id: '1', title: 'data X' })
-        .training({ id: '1', dataSet: '1', subjectQdit: '1' })
+        .training({ id: '1', dataSet: '1', srcQdit: '1', dstQdit: '2' })
         .build();
 }
 
@@ -42,8 +43,8 @@ function UserPages() {
             <Router>
                 <Page>
                     <main>
-                        <Switch>
-                            <Route exact path="/">
+                        <Routes>
+                            <Route path="/">
                                 <HomePage />
                             </Route>
                             <Route path="/models">Models</Route>
@@ -51,7 +52,7 @@ function UserPages() {
                             <Route path="*">
                                 <NoMatch />
                             </Route>
-                        </Switch>
+                        </Routes>
                     </main>
                 </Page>
             </Router>
