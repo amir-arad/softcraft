@@ -9,7 +9,7 @@ export default {
     title: 'Pages/Login',
     component: LoginPage,
     decorators: [
-        AppStateDecorator(stateBuilder().user({ id: '1', name: 'alice' }).user({ id: '2', name: 'bob' }).build()),
+        AppStateDecorator(stateBuilder().user({ name: 'alice' }).user({ name: 'bob' }).build()),
         AuthDecorator(null),
         StyleDecorator,
     ],

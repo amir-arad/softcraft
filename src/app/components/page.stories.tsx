@@ -1,3 +1,5 @@
+import { ids, stateBuilder } from '../model';
+
 import { AppStateDecorator } from '../hooks/app-state';
 import { AuthDecorator } from '../hooks/authentication';
 import { Meta } from '@storybook/react';
@@ -5,14 +7,14 @@ import { Page } from './page';
 import React from 'react';
 import { StyleDecorator } from '../style';
 import { Text } from '@arwes/core';
-import { stateBuilder } from '../model';
 
+const [user1] = ids();
 export default {
     title: 'Component/Page',
     component: Page,
     decorators: [
-        AppStateDecorator(stateBuilder().user({ id: '1', name: 'alice' }).user({ id: '2', name: 'bob' }).build()),
-        AuthDecorator('1'),
+        AppStateDecorator(stateBuilder().user({ id: user1, name: 'alice' }).user({ name: 'bob' }).build()),
+        AuthDecorator(user1),
         StyleDecorator,
     ],
 } as Meta;

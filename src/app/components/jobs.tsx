@@ -50,7 +50,7 @@ const trainingRow = (state: ApplicationState) => (t: Training) => {
             { id: '2', data: 'Training' },
             {
                 id: '3',
-                data: `dataset: '${dataset.title}' | source Qdit: ${srcQdit.id}' | destination Qdit: ${dstQdit.id}`,
+                data: `dataset: '${dataset.title}'' | source Qdit: ${srcQdit.id} | destination Qdit: ${dstQdit.id}`,
             },
             { id: '4', data: <FormatDistance date={t.start} includeSeconds={true} addSuffix={true} /> },
             { id: '5', data: t.hasEnded ? 'stopped' : 'running' },
@@ -84,7 +84,7 @@ const programExecutionRow = (state: ApplicationState) => (t: ProgramExecution) =
             { id: '2', data: 'Execution' },
             {
                 id: '3',
-                data: `program: '${program.title}' | executing Qdit: ${executingQdit.id}'`,
+                data: `program: '${program.title}' | executing Qdit: ${executingQdit.id}`,
             },
             { id: '4', data: <FormatDistance date={t.start} includeSeconds={true} addSuffix={true} /> },
             { id: '5', data: t.hasEnded ? 'stopped' : 'running' },

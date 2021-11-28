@@ -1,7 +1,19 @@
 import { observeDeep, syncedStore } from '@syncedstore/core';
 
 import { MappedTypeDescription } from '@syncedstore/core/types/doc';
+import { customAlphabet } from 'nanoid';
 
+export const id = customAlphabet('0123456789ABCDEF', 10);
+
+export function* ids() {
+    while (true) yield id();
+}
+
+export function idsFromMap(store: Partial<EntityStore<Entity>>): Id[] {
+    return Object.values(store)
+        .filter((i): i is Entity => !!i)
+        .map((i) => i.id);
+}
 export type InnerApplicationState = {
     users: EntityStore<User>;
     qdits: EntityStore<Qdit>;
@@ -39,8 +51,9 @@ export function stateBuilder() {
     const trainings: Training[] = [];
     const plannings: Planning[] = [];
     return {
-        user(user: Partial<User> & { id: string; name: string }) {
+        user(user: Partial<User> & { name: string }) {
             users.push({
+                id: id(),
                 qdits: [],
                 dataSets: [],
                 programs: [],
@@ -51,8 +64,9 @@ export function stateBuilder() {
             });
             return this;
         },
-        qdit(qdit: Partial<Qdit> & { id: string }) {
+        qdit(qdit: Partial<Qdit>) {
             qdits.push({
+                id: id(),
                 generation: 0,
                 attributes: 0,
                 dataSetsTrained: [],
@@ -60,16 +74,18 @@ export function stateBuilder() {
             });
             return this;
         },
-        dataset(dataset: Partial<Dataset> & { id: string; title: string }) {
+        dataset(dataset: Partial<Dataset> & { title: string }) {
             dataSets.push({
+                id: id(),
                 trainingTime: 0,
                 effect: 0,
                 ...dataset,
             });
             return this;
         },
-        program(program: Partial<Program> & { id: string; title: string }) {
+        program(program: Partial<Program> & { title: string }) {
             programs.push({
+                id: id(),
                 executionTime: 0,
                 maxModelGeneration: 0,
                 minAttributes: 0,
@@ -80,8 +96,9 @@ export function stateBuilder() {
             });
             return this;
         },
-        programExecution(programExecution: Partial<ProgramExecution> & { id: string; program: Id; executingQdit: Id }) {
+        programExecution(programExecution: Partial<ProgramExecution> & { program: Id; executingQdit: Id }) {
             programExecutions.push({
+                id: id(),
                 arguments: {},
                 start: Date.now(),
                 hasEnded: false,
@@ -89,16 +106,18 @@ export function stateBuilder() {
             });
             return this;
         },
-        training(training: Partial<Training> & { id: string; dataSet: Id; srcQdit: Id; dstQdit: Id }) {
+        training(training: Partial<Training> & { dataSet: Id; srcQdit: Id; dstQdit: Id }) {
             trainings.push({
+                id: id(),
                 start: Date.now(),
                 hasEnded: false,
                 ...training,
             });
             return this;
         },
-        planning(planning: Partial<Planning> & { id: string; query: Text }) {
+        planning(planning: Partial<Planning> & { query: Text }) {
             plannings.push({
+                id: id(),
                 start: Date.now(),
                 hasEnded: false,
                 resultPrograms: [],

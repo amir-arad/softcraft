@@ -64,6 +64,7 @@
         "date-fns": "^2.26.0",
         "dotenv": "^10.0.0",
         "express": "^4.17.1",
+        "nanoid": "^3.1.30",
         "react": "^17.0.2",
         "react-date-fns-hooks": "^0.9.1",
         "react-dom": "^17.0.2",

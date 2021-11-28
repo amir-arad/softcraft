@@ -2,45 +2,39 @@
 /** @jsx jsx */
 
 import { Jobs, JobsProps } from './jobs';
+import { id, ids, idsFromMap, stateBuilder } from '../model';
 
 import { AppStateDecorator } from '../hooks/app-state';
 import { Meta } from '@storybook/react';
 import { StyleDecorator } from '../style';
 import { jsx } from '@emotion/react';
-import { stateBuilder } from '../model';
+
+const [qdit1, qdit2, dataset1, program1] = ids();
+const longQuery = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation?`;
+const state = stateBuilder()
+    .qdit({ id: qdit1 })
+    .qdit({ id: qdit2 })
+    .dataset({ id: dataset1, title: 'data X' })
+    .program({ id: program1, title: 'program X' })
+
+    .training({ dataSet: dataset1, srcQdit: qdit1, dstQdit: qdit2 })
+    .training({ dataSet: dataset1, srcQdit: qdit2, dstQdit: qdit1 })
+    .training({ dataSet: dataset1, srcQdit: qdit1, dstQdit: qdit1 })
+    .training({ dataSet: dataset1, srcQdit: qdit2, dstQdit: qdit2 })
+    .programExecution({ program: program1, executingQdit: qdit1 })
+    .programExecution({ program: program1, executingQdit: qdit2 })
+    .planning({ query: 'short query?' })
+    .planning({ query: longQuery })
+    .build();
 
 export default {
     title: 'Component/Jobs',
     component: Jobs,
-    decorators: [
-        AppStateDecorator(
-            stateBuilder()
-                .qdit({ id: '1' })
-                .qdit({ id: '2' })
-                .dataset({ id: '1', title: 'data X' })
-                .program({ id: '1', title: 'program X' })
-
-                .training({ id: '1', dataSet: '1', srcQdit: '1', dstQdit: '2' })
-                .training({ id: '2', dataSet: '1', srcQdit: '2', dstQdit: '1' })
-                .training({ id: '3', dataSet: '1', srcQdit: '1', dstQdit: '1' })
-                .training({ id: '4', dataSet: '1', srcQdit: '2', dstQdit: '2' })
-                .programExecution({ id: '1', program: '1', executingQdit: '1' })
-                .programExecution({ id: '2', program: '1', executingQdit: '2' })
-                .planning({ id: '1', query: 'short query?' })
-                .planning({
-                    id: '2',
-                    query:
-                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt' +
-                        ' ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation?',
-                })
-                .build()
-        ),
-        StyleDecorator,
-    ],
+    decorators: [AppStateDecorator(state), StyleDecorator],
     args: {
-        trainings: ['1', '2', '3', '4'],
-        programExecutions: ['1', '2'],
-        plannings: ['1', '2'],
+        trainings: idsFromMap(state.trainings),
+        programExecutions: idsFromMap(state.programExecutions),
+        plannings: idsFromMap(state.plannings),
     } as JobsProps,
 } as Meta;
 
