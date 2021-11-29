@@ -44,14 +44,10 @@ function UserPages() {
                 <Page>
                     <main>
                         <Routes>
-                            <Route path="/">
-                                <HomePage />
-                            </Route>
-                            <Route path="/models">Models</Route>
-                            <Route path="/datesets">Data-Sets</Route>
-                            <Route path="*">
-                                <NoMatch />
-                            </Route>
+                            <Route path="/" element={<HomePage />} />
+                            <Route path="/models" />
+                            <Route path="/datesets" />
+                            <Route path="*" element={<NoMatch />} />
                         </Routes>
                     </main>
                 </Page>

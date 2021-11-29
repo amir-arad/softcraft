@@ -9,3 +9,19 @@ body {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+.flex-container {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-flow: wrap;
+}
+
+.space-between {
+    align-content: space-between;
+}
+
+.flex-break {
+    flex-basis: 100%;
+    height: 0;
+}

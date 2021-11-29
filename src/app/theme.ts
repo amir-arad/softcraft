@@ -9,6 +9,19 @@ export const PALETTE_SECONDARY = '#b1d8f1';
 export const PALETTE_TEXT = '#a0c8e2';
 export const PALETTE_NEUTRAL = '#030f18';
 
+/**
+ * convert hex color and alpha value to rgba expression
+ * @param rgb CSS hex RGB string like '#62bffd'
+ * @param a CSS decimal point alpha string like '.15'
+ * @returns css rgba string like 'rgba(255, 0, 0, 0.5)'
+ */
+export function rgba(rgb: string, a: string) {
+    return `rgba(${parseInt(rgb.substring(1, 3), 16)},${parseInt(rgb.substring(3, 5), 16)},${parseInt(
+        rgb.substring(5, 7),
+        16
+    )},${a})`;
+}
+
 export const themeProviderProps: ArwesThemeProviderProps = {
     themeSettings: {
         palette: {
@@ -37,7 +50,7 @@ export const theme = {
     //     monospace: FONT_FAMILY_MONOSPACE,
     // },
     color: {
-        // background: '#001313',
+        background: '#001313',
         section: '#001a1a',
         // border: '#06d8d7',
         headings: '#00f8f8',

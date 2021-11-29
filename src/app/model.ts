@@ -25,7 +25,28 @@ export type InnerApplicationState = {
 };
 export type Entity = { id: Id };
 export type EntityStore<T extends Entity> = Record<Id, T>;
+export enum JobState {
+    STARTED,
+    CANCELLED,
+    COMPLETED,
+}
+export type Job = {
+    start: Milliseconds;
+    jobState: JobState;
+};
 
+export function jobStateName(jobState: JobState) {
+    switch (jobState) {
+        case JobState.STARTED:
+            return 'started';
+        case JobState.CANCELLED:
+            return 'cancelled';
+        case JobState.COMPLETED:
+            return 'completed';
+        default:
+            throw new Error(`unknown COMPLETED: ${jobState}`);
+    }
+}
 export function addToMap<T extends Entity>(store: Partial<EntityStore<T>>, entity: T) {
     store[entity.id] = entity;
 }
@@ -101,7 +122,7 @@ export function stateBuilder() {
                 id: id(),
                 arguments: {},
                 start: Date.now(),
-                hasEnded: false,
+                jobState: JobState.STARTED,
                 ...programExecution,
             });
             return this;
@@ -110,7 +131,7 @@ export function stateBuilder() {
             trainings.push({
                 id: id(),
                 start: Date.now(),
-                hasEnded: false,
+                jobState: JobState.STARTED,
                 ...training,
             });
             return this;
@@ -119,7 +140,7 @@ export function stateBuilder() {
             plannings.push({
                 id: id(),
                 start: Date.now(),
-                hasEnded: false,
+                jobState: JobState.STARTED,
                 resultPrograms: [],
                 ...planning,
             });
@@ -194,7 +215,7 @@ export type ProgramExecution = {
     executingQdit: Id;
     arguments: Record<string, string>;
     start: Milliseconds;
-    hasEnded: boolean;
+    jobState: JobState;
 };
 
 export type Training = {
@@ -203,13 +224,13 @@ export type Training = {
     srcQdit: Id;
     dstQdit: Id;
     start: Milliseconds;
-    hasEnded: boolean;
+    jobState: JobState;
 };
 
 export type Planning = {
     id: Id;
     query: Text;
     start: Milliseconds;
-    hasEnded: boolean;
+    jobState: JobState;
     resultPrograms: Id[];
 };
