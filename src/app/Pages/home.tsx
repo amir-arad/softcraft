@@ -18,7 +18,11 @@ export const HomePage: FC = () => {
     return (
         <>
             <Text as="h1">Here is a list of all your jobs</Text>
-            <Jobs trainings={auth.user.trainings} programExecutions={auth.user.programExecutions} />
+            <Jobs
+                trainings={auth.user.trainings}
+                programExecutions={auth.user.programExecutions}
+                plannings={auth.user.plannings}
+            />
         </>
     );
 };

@@ -32,6 +32,7 @@ const headers = [
 
 const columnWidths = ['10%', '10%', '35%', '20%', '13%', '12%'];
 
+// inspiration: https://docs.docker.com/engine/reference/commandline/ps/
 export type JobsProps = { trainings?: Id[]; programExecutions?: Id[]; plannings?: Id[] };
 export const Jobs: FC<JobsProps> = ({ trainings = [], programExecutions = [], plannings = [] }: JobsProps) => {
     const state = useAppState();
@@ -162,14 +163,3 @@ const planningRow = (setJobToCancel: (t: Job) => void) => (t: Planning) => {
         ],
     };
 };
-
-// inspiration: https://docs.docker.com/engine/reference/commandline/ps/
-
-/**
- * training and executions
- - running time
- - progress bar 
- - call to action: cancel
-##### cancel wizard
-"are you sure?"
- */
