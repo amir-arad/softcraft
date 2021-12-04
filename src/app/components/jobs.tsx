@@ -16,7 +16,7 @@ import {
 import { Button, Table, Text } from '@arwes/core';
 import React, { FC, useState } from 'react';
 
-import { FormatDistance } from 'react-date-fns-hooks/src/index';
+import { FormatDistance } from 'react-date-fns-hooks';
 import { Modal } from './modal';
 import { jsx } from '@emotion/react';
 import { useAppState } from '../hooks/app-state';
