@@ -89,7 +89,7 @@ export function stateBuilder() {
             qdits.push({
                 id: id(),
                 generation: 0,
-                attributes: 0,
+                attributes: VECA_0,
                 dataSetsTrained: [],
                 ...qdit,
             });
@@ -99,7 +99,7 @@ export function stateBuilder() {
             dataSets.push({
                 id: id(),
                 trainingTime: 0,
-                effect: 0,
+                effect: VECA_0,
                 ...dataset,
             });
             return this;
@@ -109,7 +109,7 @@ export function stateBuilder() {
                 id: id(),
                 executionTime: 0,
                 maxModelGeneration: 0,
-                minAttributes: 0,
+                minAttributes: VECA_0,
                 playerDescription: program.title,
                 masterDescription: program.title,
                 outputTemplate: program.title,
@@ -168,7 +168,8 @@ export function stateBuilder() {
     };
 }
 
-export type Veca = number;
+export const VECA_0: Veca = [0, 0, 0, 0];
+export type Veca = [number, number, number, number];
 export type Text = string;
 export type Milliseconds = number;
 export type Id = string;

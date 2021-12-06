@@ -1,0 +1,9 @@
+{
+    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
+    "eslint.format.enable": true,
+    "eslint.alwaysShowStatus": true,
+    "typescript.tsdk": "node_modules\\typescript\\lib",
+    "editor.formatOnSave": true,
+    "files.eol": "\n",
+    "typescript.enablePromptUseWorkspaceTsdk": true
+}
