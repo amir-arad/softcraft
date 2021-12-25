@@ -1,25 +1,28 @@
 import { ProvideAuth, useAuthenticatedUserId } from './hooks/authentication';
 import { Route, BrowserRouter as Router, Routes, useLocation } from 'react-router-dom';
+import { ids, stateBuilder } from './model';
 
+import { DataSet } from './Pages/dataset';
 import { HomePage } from './Pages/home';
 import { LoginPage } from './Pages/login';
 import { Page } from './components/page';
 import { ProvideAppState } from './hooks/app-state';
 import React from 'react';
 import { StyleWrapper } from './style';
-import { stateBuilder } from './model';
 
 export function createApplicationState() {
+    const [alice, bob, dataset1, dataset2, qdit1, qdit2, training] = ids();
     console.log('creating a new application state');
     return stateBuilder()
-        .user({ id: '1', name: 'alice', qdits: ['1'], dataSets: ['1'], trainings: ['1'] })
-        .user({ id: '2', name: 'bob' })
+        .dataset({ id: dataset1, title: 'data X', effect: [0, 0, 1, 2] })
+        .dataset({ id: dataset2, title: 'data Y', effect: [3, -2, -1, 4] })
+        .user({ id: alice, name: 'alice', qdits: [qdit1, qdit2], dataSets: [dataset1], trainings: [training] })
+        .user({ id: bob, name: 'bob' })
 
-        .qdit({ id: '1' })
-        .qdit({ id: '2' })
+        .qdit({ id: qdit1 })
+        .qdit({ id: qdit2 })
 
-        .dataset({ id: '1', title: 'data X' })
-        .training({ id: '1', dataSet: '1', srcQdit: '1', dstQdit: '2' })
+        .training({ id: training, dataSet: dataset1, srcQdit: qdit1, dstQdit: qdit2 })
         .build();
 }
 
@@ -46,7 +49,7 @@ function UserPages() {
                         <Routes>
                             <Route path="/" element={<HomePage />} />
                             <Route path="/models" />
-                            <Route path="/datesets" />
+                            <Route path="/datesets" element={<DataSet />} />
                             <Route path="*" element={<NoMatch />} />
                         </Routes>
                     </main>

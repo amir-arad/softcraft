@@ -7,6 +7,7 @@ import 'react-svg-radar-chart/build/css/index.css';
 import { FONT_FAMILY_ROOT, PALETTE_PRIMARY, PALETTE_SECONDARY, PALETTE_TEXT } from '../theme';
 
 import RadarChart from 'react-svg-radar-chart';
+import React from 'react';
 import { Veca } from '../model';
 import { jsx } from '@emotion/react';
 import { useMemo } from 'react';
@@ -69,4 +70,9 @@ export function VecaBig({ value, size }: VecaProps) {
         [v, e, c, a, max]
     );
     return <RadarChart size={size} options={options} captions={captions} data={data} />;
+}
+
+export function VecaSmall({ value }: { value: Veca }) {
+    const [v, e, c, a] = value;
+    return <>{'V' + v + ' E' + e + ' C' + c + ' A' + a}</>;
 }
