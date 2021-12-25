@@ -88,7 +88,7 @@ const trainingRow = (state: ApplicationState, setJobToCancel: (t: Job) => void) 
             { id: '2', data: 'Training' },
             {
                 id: '3',
-                data: `dataset: '${dataset.title}'' | source Qdit: ${srcQdit.id} | destination Qdit: ${dstQdit.id}`,
+                data: `dataset: '${dataset.title}' | source Qdit: ${srcQdit.id} | destination Qdit: ${dstQdit.id}`,
             },
             { id: '4', data: <FormatDistance date={t.start} includeSeconds={true} addSuffix={true} /> },
             { id: '5', data: jobStateName(t.jobState) },
