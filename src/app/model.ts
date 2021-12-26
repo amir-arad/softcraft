@@ -1,7 +1,8 @@
 import { observeDeep, syncedStore } from '@syncedstore/core';
-
 import { MappedTypeDescription } from '@syncedstore/core/types/doc';
+import { uniqueNamesGenerator, adjectives, colors } from 'unique-names-generator';
 import { customAlphabet } from 'nanoid';
+import { customSpaceThemeWords } from '../lib/space-words';
 
 export const id = customAlphabet('0123456789ABCDEF', 10);
 
@@ -9,11 +10,45 @@ export function* ids() {
     while (true) yield id();
 }
 
+export function* friendlyIds() {
+    while (true) yield friendlyId();
+}
+
+export function friendlyId(): string {
+    return uniqueNamesGenerator({ dictionaries: [adjectives, colors, customSpaceThemeWords] });
+}
+
 export function idsFromMap(store: Partial<EntityStore<Entity>>): Id[] {
     return Object.values(store)
         .filter((i): i is Entity => !!i)
         .map((i) => i.id);
 }
+
+export function getQditGeneration(qdit: Qdit): number {
+    return qdit.dataSetsTrained.length;
+}
+
+export function selectQdit(state: ApplicationState, qditId: Id): Qdit {
+    const qdit = state.qdits[qditId];
+    if (!qdit) throw new Error(`Qdit ${qditId} not found`);
+    return qdit;
+}
+
+export function selectQditVECA(state: ApplicationState, qditId: Id): Veca {
+    // This currently allows negative values, we should probably max(v, 0) them before displaying the VECABIG)
+    const qdit = selectQdit(state, qditId);
+    return [...qdit.dataSetsTrained].reduce((acc, ds) => {
+        const [v, e, c, a] = selectDataset(state, ds).effect;
+        return [acc[0] + v, acc[1] + e, acc[2] + c, acc[3] + a];
+    }, VECA_0);
+}
+
+export function selectDataset(state: ApplicationState, datasetId: Id): Dataset {
+    const dataset = state.dataSets[datasetId];
+    if (!dataset) throw new Error(`Dataset ${datasetId} not found`);
+    return dataset;
+}
+
 export type InnerApplicationState = {
     users: EntityStore<User>;
     qdits: EntityStore<Qdit>;
@@ -87,9 +122,7 @@ export function stateBuilder() {
         },
         qdit(qdit: Partial<Qdit>) {
             qdits.push({
-                id: id(),
-                generation: 0,
-                attributes: VECA_0,
+                id: friendlyId(),
                 dataSetsTrained: [],
                 ...qdit,
             });
@@ -187,8 +220,6 @@ export type User = {
 
 export type Qdit = {
     id: Id;
-    generation: number;
-    attributes: Veca;
     dataSetsTrained: Id[];
 };
 
