@@ -1,6 +1,6 @@
 import { FC, createContext, useContext } from 'react';
 
-import { ApplicationState } from '../model';
+import { ApplicationState, Id, Qdit, selectQdit, selectQditVECA, Veca } from '../model';
 import React from 'react';
 import { useSyncedStore } from '@syncedstore/react';
 
@@ -15,6 +15,21 @@ export function useAppState(): ApplicationState {
         throw new Error('useAppState must be used within a ProvideAppState.');
     }
     return useSyncedStore(state);
+}
+
+export interface QditExtended extends Qdit {
+    value: Veca;
+    generation: number;
+}
+export function useQdit(id: Id): QditExtended {
+    const state = useAppState();
+    const qdit = selectQdit(state, id);
+    console.log(qdit);
+    return {
+        ...qdit,
+        value: selectQditVECA(state, id),
+        generation: qdit.dataSetsTrained.length,
+    };
 }
 
 export const AppStateDecorator = (state: ApplicationState | null) => (Story: FC) =>

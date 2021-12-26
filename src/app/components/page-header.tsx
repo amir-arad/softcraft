@@ -28,7 +28,7 @@ export const AppHeader: FC = () => {
                     <Text as="nav" css={styles.nav} blink={false}>
                         <ul css={styles.navList}>
                             <li css={styles.navItem}>
-                                <Link to="/models">Models</Link>
+                                <Link to="/qdits">QDits</Link>
                             </li>
                             <li css={styles.navItem}>
                                 <Link to="/datesets">Data-Sets</Link>

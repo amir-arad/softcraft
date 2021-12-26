@@ -3,13 +3,14 @@
 
 import { Jobs, JobsProps } from './jobs';
 import { Meta, StoryFn } from '@storybook/react';
-import { ids, idsFromMap, stateBuilder } from '../model';
+import { friendlyIds, ids, idsFromMap, stateBuilder } from '../model';
 
 import { AppStateDecorator } from '../hooks/app-state';
 import { StyleDecorator } from '../style';
 import { jsx } from '@emotion/react';
 
-const [qdit1, qdit2, dataset1, program1] = ids();
+const [dataset1, program1] = ids();
+const [qdit1, qdit2] = friendlyIds();
 const longQuery = `Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation?`;
 const state = stateBuilder()
     .qdit({ id: qdit1 })
